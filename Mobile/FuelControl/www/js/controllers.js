@@ -1,5 +1,23 @@
 angular.module('starter.controllers', [])
 
+.controller('LoginCtrl', function($scope, $rootScope, $state) {
+  
+  $scope.$on('$ionicView.enter', function(e) {
+    console.log('hehe');
+  });
+  
+  // Autentica o usuário
+  $scope.login = function(user, pass){
+    if (user === 'joao' && pass === '1234'){
+      $rootScope.userLogged = true;
+      $state.go('tab.dash');
+    } else {
+      alert ("Usuário ou senha inválidos.");
+    }
+  };
+  
+})
+
 .controller('DashCtrl', function($scope) {})
 
 .controller('ChatsCtrl', function($scope, Chats) {
@@ -10,7 +28,7 @@ angular.module('starter.controllers', [])
   //
   //$scope.$on('$ionicView.enter', function(e) {
   //});
-
+  
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
     Chats.remove(chat);
