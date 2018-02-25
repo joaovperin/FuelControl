@@ -1,10 +1,27 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+.service('Login', function($q) {
+  return {
+    login: function(user, pass) {
+      var q = $q.defer();
+      if (user === 'joao' && pass === '1234'){
+        q.resolve(true);
+      } else {
+        q.reject("Usuário ou senha inválidos.");
+      }
+      return q.promise;
+    },
+    logout: function(user){
+      return $q.resolve();
+    }
+  }
+})
+
+.factory('Histories', function() {
   // Might use a resource here that returns a JSON array
   
   // Some fake testing data
-  var chats = [{
+  var histories = [{
     id: 0,
     name: 'Ben Sparrow',
     lastText: 'You on your way?',
@@ -33,15 +50,15 @@ angular.module('starter.services', [])
   
   return {
     all: function() {
-      return chats;
+      return histories;
     },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
+    remove: function(history) {
+      histories.splice(histories.indexOf(history), 1);
     },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+    get: function(historyId) {
+      for (var i = 0; i < histories.length; i++) {
+        if (histories[i].id === parseInt(historyId)) {
+          return histories[i];
         }
       }
       return null;

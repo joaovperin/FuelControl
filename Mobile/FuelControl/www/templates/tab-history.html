@@ -1,0 +1,19 @@
+<ion-view view-title="Histórico">
+  <ion-content>
+    A implementar...
+    <ion-list ng-hide="true">
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="history in histories" type="item-text-wrap" href="/#/tab/history/{{history.id}}" >
+        <!-- <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="history in histories" type="item-text-wrap" href="#/tab/history/{{history.id}}"> -->
+          <img ng-src="{{history.face}}">
+          <h2>{{history.name}}</h2>
+          <p>{{history.lastText}}</p>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+          
+          <ion-option-button class="button-assertive" ng-click="remove(history)">
+            Delete
+          </ion-option-button>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-view>
+  

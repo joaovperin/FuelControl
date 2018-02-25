@@ -1,0 +1,17 @@
+<ion-view view-title="Envio">
+  <ion-content class="padding">
+    <div style="padding:50px 0 50px 15px;">
+      <h2>Envio dos dados de combustível</h2>
+      <p>Os dados aqui cadastrados serão enviados ao G.A.</p>
+    </div>
+    <div class="list list-inset">
+      <label class="item item-input">
+        <input type="number" placeholder="KM inicial" ng-model="data.kmInitial">
+      </label>
+      <label class="item item-input">
+        <input type="number" placeholder="KM final" ng-model="data.kmFinal">
+      </label>
+    </div>
+    <button class="button button-block button-calm" ng-click="send(data.kmInitial, data.kmFInal)">Enviar</button>
+  </ion-content>
+</ion-view>

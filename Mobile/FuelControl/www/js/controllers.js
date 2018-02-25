@@ -1,46 +1,57 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope, $rootScope, $state) {
-  
-  $scope.$on('$ionicView.enter', function(e) {
-    console.log('hehe');
-  });
+.controller('LoginCtrl', function($scope, $rootScope, $state, Login) {
   
   // Autentica o usuário
   $scope.login = function(user, pass){
-    if (user === 'joao' && pass === '1234'){
-      $rootScope.userLogged = true;
-      $state.go('tab.dash');
-    } else {
+    Login.login(user,pass).then(function(){
+      $rootScope.userLogged = user;
+      $state.go('tab.form');
+    }).catch(function(err){
       alert ("Usuário ou senha inválidos.");
-    }
+    });
   };
   
 })
 
-.controller('DashCtrl', function($scope) {})
-
-.controller('ChatsCtrl', function($scope, Chats) {
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+.controller('TabsCtrl', function($scope, $ionicHistory, $state, $rootScope) {
   
-  $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
-    Chats.remove(chat);
+  $scope.logout = function(){
+    Login.logout($rootScope.userLogged).catch(function(err){
+      console.log('Falha ao executar login: ');
+      console.log(err);
+    }).finally(function(){
+      $rootScope.userLogged = false;
+      $state.go('login');
+    });
+  };
+  
+})
+
+.controller('FormCtrl', function($scope) {
+  
+  $scope.data = {};
+  
+  $scope.send = function(){
+    var kmI = $scope.data.kmInitial;
+    var kmF = $scope.data.kmFinal;
+    alert('Enviado! Km Inicial: '+kmI + ' Km Final: ' + kmF);
+  };
+  
+})
+
+.controller('HistoryCtrl', function($scope, Histories) {
+  $scope.histories = Histories.all();
+  $scope.remove = function(history) {
+    Histories.remove(history);
   };
 })
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.chat = Chats.get($stateParams.chatId);
-})
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
+.controller('HistoryDetailCtrl', function($scope, $stateParams, Histories) {
+  
+  $scope.$on('$ionicView.beforeEnter', function(e) {
+    console.log('historyDetail');
+    $scope.history = Histories.get($stateParams.historyId);
+  });
+  
 });

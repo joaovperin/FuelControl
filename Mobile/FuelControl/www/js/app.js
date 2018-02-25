@@ -42,47 +42,34 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   .state('tab', {
     url: '/tab',
     abstract: true,
+    controller: 'TabsCtrl',
     templateUrl: 'templates/tabs.html'
   })
   
   // Each tab has its own nav history stack:
-  .state('tab.dash', {
-    url: '/dash',
+  .state('tab.form', {
+    url: '/form',
     views: {
-      'tab-dash': {
-        templateUrl: 'templates/tab-dash.html',
-        controller: 'DashCtrl'
+      'tab-form': {
+        templateUrl: 'templates/tab-form.html',
+        controller: 'FormCtrl'
       }
     }
   })
   
-  .state('tab.chats', {
-    url: '/chats',
+  .state('tab.histories', {
+    url: '/histories',
     views: {
-      'tab-chats': {
-        templateUrl: 'templates/tab-chats.html',
-        controller: 'ChatsCtrl'
+      'tab-histories': {
+        templateUrl: 'templates/tab-history.html',
+        controller: 'HistoryCtrl'
       }
     }
   })
-  .state('tab.chat-detail', {
-    url: '/chats/:chatId',
-    views: {
-      'tab-chats': {
-        templateUrl: 'templates/chat-detail.html',
-        controller: 'ChatDetailCtrl'
-      }
-    }
-  })
-  
-  .state('tab.account', {
-    url: '/account',
-    views: {
-      'tab-account': {
-        templateUrl: 'templates/tab-account.html',
-        controller: 'AccountCtrl'
-      }
-    }
+  .state('tab.history-detail', {
+    url: '/history/:historyId',
+    templateUrl: 'templates/history-detail.html',
+    controller: 'HistoryDetailCtrl'
   });
   
   // If none of the above states are matched, fallback to Login Page
