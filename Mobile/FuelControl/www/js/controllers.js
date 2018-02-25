@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('LoginCtrl', function($scope, $rootScope, $state, Login) {
+.controller('LoginCtrl', function($scope, $rootScope, $state, Login, $ionicPopup) {
   
   // Autentica o usuário
   $scope.login = function(user, pass){
@@ -8,17 +8,20 @@ angular.module('starter.controllers', [])
       $rootScope.userLogged = user;
       $state.go('tab.form');
     }).catch(function(err){
-      alert ("Usuário ou senha inválidos.");
+      $ionicPopup.alert({
+        title: 'Falha no login!',
+        template: 'Usuário ou senha inválidos.'
+      });
     });
   };
   
 })
 
-.controller('TabsCtrl', function($scope, $ionicHistory, $state, $rootScope) {
+.controller('TabsCtrl', function($scope, $ionicHistory, $state, $rootScope, Login) {
   
   $scope.logout = function(){
     Login.logout($rootScope.userLogged).catch(function(err){
-      console.log('Falha ao executar login: ');
+      console.log('Falha ao executar logout: ');
       console.log(err);
     }).finally(function(){
       $rootScope.userLogged = false;
@@ -28,14 +31,17 @@ angular.module('starter.controllers', [])
   
 })
 
-.controller('FormCtrl', function($scope) {
+.controller('FormCtrl', function($scope, $ionicPopup) {
   
   $scope.data = {};
   
   $scope.send = function(){
     var kmI = $scope.data.kmInitial;
     var kmF = $scope.data.kmFinal;
-    alert('Enviado! Km Inicial: '+kmI + ' Km Final: ' + kmF);
+    $ionicPopup.alert({
+      title: 'Enviado!',
+      template: 'Km Inicial: '+kmI + ' Km Final: ' + kmF
+    });
   };
   
 })
