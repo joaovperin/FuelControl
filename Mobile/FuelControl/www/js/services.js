@@ -1,14 +1,47 @@
 angular.module('starter.services', [])
 
-.service('Login', function($q) {
+.service('Webservice', function($q, $http, $httpParamSerializer) {
+  
+  function getUrl(url){
+    return "http://192.168.100.31:8080/" + url;
+  }
+  
+  return {
+    post: function(url, param) {
+      return $http({
+        url: getUrl(url),
+        method: "POST",
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        data: $httpParamSerializer(param)
+      });
+    },
+    get: function(url, param) {
+      return $http({
+        url: getUrl(url),
+        method: "GET",
+        data: param
+      });
+    }
+  }
+})
+
+.service('Login', function($q, Webservice) {
   return {
     login: function(user, pass) {
       var q = $q.defer();
-      if (user === 'joao' && pass === '1234'){
-        q.resolve(true);
-      } else {
-        q.reject("Usuário ou senha inválidos.");
-      }
+      Webservice.post('login', {user:user, pass:pass}).then(function(r){
+        // If return code is Okay, proceed
+        if(r.data.httpCode === 200){
+          q.resolve(true);
+        } else {
+          // Otherwise log data on console and reject with a message
+          console.log(r.data);
+          q.reject(r.data.message);
+        }
+      }).catch(function(err){
+        console.log(err);
+        q.reject("Problema na comunicação com o WebService!");
+      });
       return q.promise;
     },
     logout: function(user){
