@@ -40,3 +40,5 @@ CREATE TABLE IF NOT EXISTS `registros` (
   `KmFinal` varchar(18) NOT NULL,
   PRIMARY KEY (`Usuario`, `HoraEnvio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_general_ci;
+
+insert into registros values ('admin', '2018-02-24 18:19:03', '100', '120');

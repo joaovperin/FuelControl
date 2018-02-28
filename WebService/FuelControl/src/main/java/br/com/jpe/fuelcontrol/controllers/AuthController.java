@@ -5,7 +5,7 @@
  */
 package br.com.jpe.fuelcontrol.controllers;
 
-import br.com.jpe.fuelcontrol.services.Auth;
+import br.com.jpe.fuelcontrol.services.AuthService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.*;
@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     /** Auth service */
-    private final Auth auth;
+    private final AuthService auth;
 
     /**
      * Dependency Injectable Controller
      *
      * @param auth
      */
-    public AuthController(Auth auth) {
+    public AuthController(AuthService auth) {
         this.auth = auth;
     }
 

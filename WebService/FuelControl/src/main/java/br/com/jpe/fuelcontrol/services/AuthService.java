@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author joaovperin
  */
 @Service
-public class Auth {
+public class AuthService {
 
     @Autowired
     private UserDAO userDAO;

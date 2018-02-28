@@ -18,7 +18,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "Registros")
-public class Registro implements Serializable {
+public class Register implements Serializable {
 
     @Id
     @Column(name = "Usuario")
@@ -62,6 +62,18 @@ public class Registro implements Serializable {
 
     public void setKmFinal(String kmFinal) {
         this.kmFinal = kmFinal;
+    }
+
+    public static class Pk {
+
+        public String user;
+        public Date horaEnvio;
+
+        public Pk(String user, Date horaEnvio) {
+            this.user = user;
+            this.horaEnvio = horaEnvio;
+        }
+
     }
 
 }
