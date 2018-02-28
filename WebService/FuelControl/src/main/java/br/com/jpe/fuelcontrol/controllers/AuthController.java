@@ -5,8 +5,9 @@
  */
 package br.com.jpe.fuelcontrol.controllers;
 
-import br.com.jpe.fuelcontrol.beans.ReturnMessage;
 import br.com.jpe.fuelcontrol.services.Auth;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +43,7 @@ public class AuthController {
     }
 
     /**
-     * Displays a Hello World message!
+     * Realize the Login on the WebService
      *
      * @param user
      * @param pass
@@ -50,12 +51,12 @@ public class AuthController {
      */
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     @ResponseBody
-    public ReturnMessage login(String user, String pass) {
+    public ResponseEntity<String> login(String user, String pass) {
         boolean validLogin = auth.login(user, pass);
         if (validLogin) {
-            return new ReturnMessage("Bem vindo, ".concat(user).concat(" !"));
+            return new ResponseEntity<>(String.format("Bem vindo, %s !", user), HttpStatus.OK);
         }
-        return new ReturnMessage(new Exception("Usuário ou senha inválidos"));
+        return new ResponseEntity<>("Usuário ou senha inválidos", HttpStatus.UNAUTHORIZED);
     }
 
 }
