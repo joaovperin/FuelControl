@@ -49,14 +49,14 @@ public class AuthController {
      * @param pass
      * @return String
      */
-    @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
+    @RequestMapping(value = { "/login" }, method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<String> login(String user, String pass) {
+    public ResponseEntity<Void> login(String user, String pass) {
         boolean validLogin = auth.login(user, pass);
         if (validLogin) {
-            return new ResponseEntity<>(String.format("Bem vindo, %s !", user), HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<>("Usuário ou senha inválidos", HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
 }

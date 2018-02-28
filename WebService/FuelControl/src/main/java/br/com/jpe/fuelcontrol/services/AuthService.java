@@ -24,16 +24,22 @@ public class AuthService {
     /**
      * Validate an user and pass and returns true if its valid
      *
-     * @param user
-     * @param pass
+     * @param username
+     * @param password
      * @return boolean
      */
-    public boolean login(String user, String pass) {
-        if (user == null || pass == null) {
+    public boolean login(String username, String password) {
+        if (username == null || password == null) {
             return false;
         }
-        User x = userDAO.getUser(user.toLowerCase());
-        return x == null ? false : x.getPass().equals(pass);
+        User user = userDAO.getUser(username.toLowerCase());
+        if (user != null && user.getPass().equals(password)) {
+//            user.setLastLoginDate(new Date());
+//            userDAO.update(user);
+            // TODO: Update LAST LOGIN TIME on the UsersLogin table.
+            return true;
+        }
+        return false;
     }
 
 }

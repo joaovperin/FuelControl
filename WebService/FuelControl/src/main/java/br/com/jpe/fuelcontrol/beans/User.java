@@ -8,6 +8,7 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -22,6 +23,8 @@ public class User implements Serializable {
     private String user;
     @Column(name = "Senha")
     private String pass;
+    @OneToOne
+    private UserLogin userLogin;
 
     public String getUser() {
         return user;
@@ -39,4 +42,19 @@ public class User implements Serializable {
         this.pass = pass;
     }
 
+    public UserLogin getUserLogin() {
+        return userLogin;
+    }
+
+    public void setUserLogin(UserLogin userLogin) {
+        this.userLogin = userLogin;
+    }
+
+//    public void setLastLoginDate(Date date) {
+//        getUserLogin().setLastLogin(date);
+//    }
+//
+//    public Date getLastLoginDate() {
+//        return getUserLogin().getLastLogin();
+//    }
 }
