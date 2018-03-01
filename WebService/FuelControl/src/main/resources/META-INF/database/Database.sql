@@ -40,17 +40,19 @@ CREATE TABLE IF NOT EXISTS `usuarios_login` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_general_ci;
 
 CREATE TABLE IF NOT EXISTS `registros` (
+  `id_registro` INTEGER NOT NULL AUTO_INCREMENT,
   `usuario` varchar(40) NOT NULL,
   `horaEnvio` TIMESTAMP NOT NULL,
   `kmInicial` varchar(18) NOT NULL,
   `kmFinal` varchar(18) NOT NULL,
-  PRIMARY KEY (`usuario`, `horaEnvio`)
+  PRIMARY KEY (`id_registro`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_general_ci;
 
 INSERT INTO `usuarios` (`usuario`, `senha`) VALUES
 ('admin', '1234'), ('perin', '1234'), ('batata', 'pass');
 
-INSERT INTO `usuarios_login` VALUES 
+INSERT INTO `usuarios_login` (`usuario`, `hora`) VALUES
 ('admin', SYSDATE()), ('perin', SYSDATE()), ('batata', SYSDATE());
 
-INSERT INTO `registros` VALUES ('admin', '2018-02-24 18:19:03', '100', '120')
+INSERT INTO `registros` (`usuario`, `horaEnvio`, `kmInicial`, `kmFinal`) VALUES
+('admin', '2018-02-24 18:19:03', '100', '120');

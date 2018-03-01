@@ -9,7 +9,6 @@ import br.com.jpe.fuelcontrol.beans.Register;
 import br.com.jpe.fuelcontrol.services.RegisterService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -46,16 +45,13 @@ public class RegisterController {
     }
 
     @PostMapping
-    public ResponseEntity add(@RequestBody String user, @RequestBody String kmInicial,
-            @RequestBody String kmFinal, UriComponentsBuilder builder) {
-//        
-//        boolean flag = true;
+    public ResponseEntity<Integer> add(String user, String kmInicial, String kmFinal, UriComponentsBuilder builder) {
+//        boolean flag = auth.isLogged(user);
 //        if (flag == false) {
 //            return new ResponseEntity<>(HttpStatus.CONFLICT);
 //        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(builder.path("/{user}&{kmInicial}&{kmFinal}").buildAndExpand("123").toUri());
-        return new ResponseEntity(headers, HttpStatus.CREATED);
+        registerService.add(user, kmInicial, kmFinal);
+        return new ResponseEntity(5, HttpStatus.CREATED);
     }
 
     @PutMapping

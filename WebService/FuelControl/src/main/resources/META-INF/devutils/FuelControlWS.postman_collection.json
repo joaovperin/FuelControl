@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "FuelControlWS",
-		"_postman_id": "e54ae688-4f8c-8f55-2c2b-d8425b2a5901",
+		"_postman_id": "67bb8cdc-1c0b-eb28-f1a6-7c8c813198bf",
 		"description": "Testing for Spring/Hibernate",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -10,7 +10,7 @@
 		{
 			"name": "Login",
 			"request": {
-				"url": "http://localhost:8085/login",
+				"url": "http://{{hostname}}:8085/login",
 				"method": "POST",
 				"header": [
 					{
@@ -43,7 +43,7 @@
 		{
 			"name": "Logout",
 			"request": {
-				"url": "http://localhost:8085/logout",
+				"url": "http://{{hostname}}:8085/logout",
 				"method": "POST",
 				"header": [
 					{
@@ -77,10 +77,10 @@
 			"name": "isLogged",
 			"request": {
 				"url": {
-					"raw": "http://localhost:8085/isLogged?user=perin",
+					"raw": "http://{{hostname}}:8085/isLogged?user=perin",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{hostname}}"
 					],
 					"port": "8085",
 					"path": [
@@ -106,7 +106,7 @@
 		{
 			"name": "Home",
 			"request": {
-				"url": "http://localhost:8085/",
+				"url": "http://{{hostname}}:8085/",
 				"method": "GET",
 				"header": [],
 				"body": {},

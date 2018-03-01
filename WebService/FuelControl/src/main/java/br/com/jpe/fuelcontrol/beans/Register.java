@@ -6,31 +6,51 @@ package br.com.jpe.fuelcontrol.beans;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 /**
  * Entity that represents a Register
  */
 @Entity
-@Table(name = "Registros")
+@Table(name = "registros")
 public class Register implements Serializable {
 
     @Id
-    @Column(name = "Usuario")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id_registro")
+    private String id;
+
+    @Column(name = "usuario")
     private String user;
-    @Id
-    @Column(name = "HoraEnvio")
+
+    @Column(name = "horaenvio")
     @Temporal(TemporalType.TIMESTAMP)
     private Date horaEnvio;
-    @Column(name = "KmInicial")
+
+    @Column(name = "kminicial")
     private String kmInicial;
-    @Column(name = "KmFinal")
+
+    @Column(name = "kmfinal")
     private String kmFinal;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getUser() {
         return user;

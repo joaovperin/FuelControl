@@ -23,7 +23,11 @@ public class RegisterService {
     @Autowired
     private RegisterDAO registerDAO;
 
-    public void add(Register reg) {
+    public void add(String user, String kmInicial, String kmFinal) {
+        Register reg = new Register();
+        reg.setUser(user);
+        reg.setKmInicial(kmInicial);
+        reg.setKmFinal(kmFinal);
         reg.setHoraEnvio(new Date());
         registerDAO.insert(reg);
     }
