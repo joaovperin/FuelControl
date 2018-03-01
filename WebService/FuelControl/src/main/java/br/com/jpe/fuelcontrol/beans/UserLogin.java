@@ -9,6 +9,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,16 +17,20 @@ import javax.persistence.TemporalType;
 /**
  * Entity that represents an UserLogin
  */
-@Entity(name = "usuarios_login")
+@Entity
 @Table(name = "usuarios_login")
 public class UserLogin implements Serializable {
 
     @Id
-    @Column(name = "Usuario")
+    @Column(name = "usuario")
     private String usuario;
-    @Column(name = "HoraUltimoLogin")
+
+    @Column(name = "hora")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
+
+    @OneToOne(mappedBy = "userLogin")
+    private Usuario myuser;
 
     public String getUsuario() {
         return usuario;
@@ -41,6 +46,14 @@ public class UserLogin implements Serializable {
 
     public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
+    }
+
+    public Usuario getMyuser() {
+        return myuser;
+    }
+
+    public void setMyuser(Usuario myuser) {
+        this.myuser = myuser;
     }
 
 }

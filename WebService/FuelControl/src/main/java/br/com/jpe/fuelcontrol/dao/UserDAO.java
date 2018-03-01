@@ -4,7 +4,7 @@
  */
 package br.com.jpe.fuelcontrol.dao;
 
-import br.com.jpe.fuelcontrol.beans.User;
+import br.com.jpe.fuelcontrol.beans.Usuario;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,30 +20,36 @@ public class UserDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public User getUser(String user) {
-        return entityManager.find(User.class, user);
+    public Usuario readKey(String user) {
+        return entityManager.find(Usuario.class, user);
     }
 
-    public List<User> getAllUsers() {
+    public List<Usuario> select() {
         String hql = "FROM Usuarios as us ORDER BY us.Usuario";
         return entityManager.createQuery(hql).getResultList();
     }
 
     @Transactional
-    public void addArticle(User user) {
+    public void insert(Usuario user) {
         entityManager.persist(user);
     }
 
     @Transactional
-    public void update(User user) {
-        User usr = getUser(user.getUser());
-        usr.setPass(user.getPass());
+    public void update(Usuario user) {
+        Usuario usr = readKey(user.getUsuario());
+        usr.setSenha(user.getSenha());
         entityManager.flush();
     }
 
     @Transactional
     public void delete(String user) {
-        entityManager.remove(getUser(user));
+        entityManager.remove(readKey(user));
+    }
+
+    public long count() {
+        String hql = "FROM Usuarios";
+        int count = entityManager.createQuery(hql).getResultList().size();
+        return count;
     }
 
     public boolean exists(String user) {

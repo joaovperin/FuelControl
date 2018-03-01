@@ -4,7 +4,7 @@
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://vc-pedweb-vubu/FuelControl?zeroDateTimeBehavior=convertToNull"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost/FuelControl?zeroDateTimeBehavior=convertToNull"/>
             <property name="javax.persistence.jdbc.user" value="Administrador"/>
             <property name="javax.persistence.jdbc.password" value="admin@1234"/>
             <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>

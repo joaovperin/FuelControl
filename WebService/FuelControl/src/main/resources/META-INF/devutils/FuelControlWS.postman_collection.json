@@ -1,0 +1,118 @@
+{
+	"variables": [],
+	"info": {
+		"name": "FuelControlWS",
+		"_postman_id": "e54ae688-4f8c-8f55-2c2b-d8425b2a5901",
+		"description": "Testing for Spring/Hibernate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"url": "http://localhost:8085/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "user",
+							"value": "perin",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "pass",
+							"value": "1234",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "http://localhost:8085/login\t"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"url": "http://localhost:8085/logout",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "user",
+							"value": "perin",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "pass",
+							"value": "1234",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "http://localhost:8085/login\t"
+			},
+			"response": []
+		},
+		{
+			"name": "isLogged",
+			"request": {
+				"url": {
+					"raw": "http://localhost:8085/isLogged?user=perin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8085",
+					"path": [
+						"isLogged"
+					],
+					"query": [
+						{
+							"key": "user",
+							"value": "perin",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Home",
+			"request": {
+				"url": "http://localhost:8085/",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}

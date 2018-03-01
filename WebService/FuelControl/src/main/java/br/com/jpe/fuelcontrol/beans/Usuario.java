@@ -8,38 +8,42 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
  * Entity that represents an User
  */
-@Entity(name = "usuarios")
+@Entity
 @Table(name = "usuarios")
-public class User implements Serializable {
+public class Usuario implements Serializable {
 
     @Id
-    @Column(name = "Usuario")
-    private String user;
-    @Column(name = "Senha")
-    private String pass;
+    @Column(name = "usuario")
+    private String usuario;
+
+    @Column(name = "senha")
+    private String senha;
+
     @OneToOne
+    @JoinColumn(name = "usuario")
     private UserLogin userLogin;
 
-    public String getUser() {
-        return user;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public String getPass() {
-        return pass;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public UserLogin getUserLogin() {
@@ -50,11 +54,4 @@ public class User implements Serializable {
         this.userLogin = userLogin;
     }
 
-//    public void setLastLoginDate(Date date) {
-//        getUserLogin().setLastLogin(date);
-//    }
-//
-//    public Date getLastLoginDate() {
-//        return getUserLogin().getLastLogin();
-//    }
 }
