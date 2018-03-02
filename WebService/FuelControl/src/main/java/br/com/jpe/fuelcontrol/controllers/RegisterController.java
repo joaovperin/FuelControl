@@ -19,9 +19,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.util.UriComponentsBuilder;
 
 /**
+ * A controller for the register entity
  *
  * @author joaovperin
  */
@@ -39,31 +39,25 @@ public class RegisterController {
     }
 
     @GetMapping("/{user}")
-    public ResponseEntity get(@PathVariable("user") String user) {
+    public ResponseEntity get(@PathVariable String user) {
         List<Register> list = registerService.getAllFor(user);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Integer> add(String user, String kmInicial, String kmFinal, UriComponentsBuilder builder) {
-//        boolean flag = auth.isLogged(user);
-//        if (flag == false) {
-//            return new ResponseEntity<>(HttpStatus.CONFLICT);
-//        }
-        registerService.add(user, kmInicial, kmFinal);
-        return new ResponseEntity(5, HttpStatus.CREATED);
+    public ResponseEntity<Integer> add(String user, String kmInicial, String kmFinal) {
+        long id = registerService.add(user, kmInicial, kmFinal);
+        return new ResponseEntity(id, HttpStatus.CREATED);
     }
 
     @PutMapping
     public ResponseEntity update(@RequestBody String user) {
-//        registerService.update(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.NOT_IMPLEMENTED);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
-//        registerService.delete(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
 
 }

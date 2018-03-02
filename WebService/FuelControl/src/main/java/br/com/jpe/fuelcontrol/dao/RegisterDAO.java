@@ -5,7 +5,6 @@
 package br.com.jpe.fuelcontrol.dao;
 
 import br.com.jpe.fuelcontrol.beans.Register;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,13 +20,20 @@ public class RegisterDAO {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public Register get(String user, Date date) {
-        return entityManager.find(Register.class, new Register.Pk(user, date));
+    public Register get(long idRegister) {
+        return entityManager.find(Register.class, idRegister);
     }
 
     public List<Register> getAll() {
-        String hql = "FROM registros rg ORDER BY rg.Usuario";
-        return entityManager.createQuery(hql).getResultList();
+        return entityManager.createQuery("SELECT r FROM registros r")
+                .setMaxResults(10)
+                .getResultList();
+    }
+
+    public List<Register> getAllForUser(String user) {
+        return entityManager.createQuery("SELECT r FROM registros r WHERE r.user LIKE :user")
+                .setParameter("user", user)
+                .getResultList();
     }
 
     @Transactional
@@ -36,20 +42,8 @@ public class RegisterDAO {
     }
 
     @Transactional
-    public void update(Register reg) {
-        Register usr = get(reg.getUser(), reg.getHoraEnvio());
-        entityManager.flush();
+    public void delete(long idRegister) {
+        entityManager.remove(get(idRegister));
     }
 
-    @Transactional
-    public void delete(String user, Date date) {
-        entityManager.remove(get(user, date));
-    }
-
-    public boolean exists(String user, Date date) {
-        String hql = "FROM registros as rg WHERE rg.Usuario = ? AND rg.HoraEnvio = ?";
-        int count = entityManager.createQuery(hql).setParameter(1, user)
-                .setParameter(2, date).getResultList().size();
-        return count > 0;
-    }
 }

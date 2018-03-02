@@ -45,7 +45,13 @@ CREATE TABLE IF NOT EXISTS `registros` (
   `horaEnvio` TIMESTAMP NOT NULL,
   `kmInicial` varchar(18) NOT NULL,
   `kmFinal` varchar(18) NOT NULL,
-  PRIMARY KEY (`id_registro`)
+  PRIMARY KEY (`id_registro`),
+  INDEX `FK_Registros_Usuarios_idx` (`usuario` ASC),
+  CONSTRAINT `FK_Registros_Usuarios`
+    FOREIGN KEY (`usuario`)
+    REFERENCES `usuarios` (`usuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE = utf8_general_ci;
 
 INSERT INTO `usuarios` (`usuario`, `senha`) VALUES

@@ -6,7 +6,6 @@ package br.com.jpe.fuelcontrol.beans;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,21 +14,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
 
 /**
  * Entity that represents a Register
  */
-@Entity
+@Entity(name = "registros")
 @Table(name = "registros")
 public class Register implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "id_registro")
-    private String id;
+    private long id;
 
     @Column(name = "usuario")
     private String user;
@@ -44,11 +40,11 @@ public class Register implements Serializable {
     @Column(name = "kmfinal")
     private String kmFinal;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -82,18 +78,6 @@ public class Register implements Serializable {
 
     public void setKmFinal(String kmFinal) {
         this.kmFinal = kmFinal;
-    }
-
-    public static class Pk {
-
-        public String user;
-        public Date horaEnvio;
-
-        public Pk(String user, Date horaEnvio) {
-            this.user = user;
-            this.horaEnvio = horaEnvio;
-        }
-
     }
 
 }

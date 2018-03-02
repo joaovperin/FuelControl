@@ -23,7 +23,7 @@ public class UserLogin implements Serializable {
 
     @Id
     @Column(name = "usuario")
-    private String usuario;
+    private String usuarioLogado;
 
     @Column(name = "hora")
     @Temporal(TemporalType.TIMESTAMP)
@@ -32,12 +32,12 @@ public class UserLogin implements Serializable {
     @OneToOne(mappedBy = "userLogin")
     private Usuario myuser;
 
-    public String getUsuario() {
-        return usuario;
+    public String getUsuarioLogado() {
+        return usuarioLogado;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public void setUsuarioLogado(String usuarioLogado) {
+        this.usuarioLogado = usuarioLogado;
     }
 
     public Date getLastLogin() {
