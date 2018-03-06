@@ -4,6 +4,8 @@
  */
 package br.com.jpe.fuelcontrol;
 
+import br.com.jpe.fuelcontrol.interceptors.AuthHandlerMapping;
+import br.com.jpe.fuelcontrol.interceptors.CORSHandlerMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -17,6 +19,8 @@ public class FuelControlConfig extends WebMvcConfigurerAdapter {
 
     @Autowired
     private CORSHandlerMapping corsInterceptor;
+    @Autowired
+    private AuthHandlerMapping authInterceptor;
 
     /**
      * Add the interceptors to the registry
@@ -26,6 +30,7 @@ public class FuelControlConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(corsInterceptor);
+        registry.addInterceptor(authInterceptor);
     }
 
 }

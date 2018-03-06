@@ -25,6 +25,9 @@ public class UserLogin implements Serializable {
     @Column(name = "usuario")
     private String usuarioLogado;
 
+    @Column(name = "token")
+    private String token;
+
     @Column(name = "hora")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
@@ -38,6 +41,14 @@ public class UserLogin implements Serializable {
 
     public void setUsuarioLogado(String usuarioLogado) {
         this.usuarioLogado = usuarioLogado;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Date getLastLogin() {

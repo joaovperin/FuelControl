@@ -29,9 +29,11 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 
 CREATE TABLE IF NOT EXISTS `usuarios_login` (
   `usuario` varchar(40) NOT NULL,
+  `token` varchar(40) NULL,
   `hora` TIMESTAMP NULL,
   PRIMARY KEY (`usuario`),
   INDEX `FK_Usuarios_Usuarios_Login_idx` (`usuario` ASC),
+  INDEX `Token_Usuarios_Login_idx` (`token` ASC),
   CONSTRAINT `FK_Usuarios_Usuarios_Login`
     FOREIGN KEY (`usuario`)
     REFERENCES `usuarios` (`usuario`)

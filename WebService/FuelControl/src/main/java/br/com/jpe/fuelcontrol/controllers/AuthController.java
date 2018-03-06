@@ -41,7 +41,7 @@ public class AuthController {
      * @param user
      * @return String
      */
-    @RequestMapping(value = {"/isLogged"}, method = RequestMethod.GET)
+    @RequestMapping(value = { "/isLogged" }, method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Boolean> login(String user) {
         if (auth.isLoggedIn(user)) {
@@ -57,7 +57,7 @@ public class AuthController {
      * @param pass
      * @return String
      */
-    @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
+    @RequestMapping(value = { "/login" }, method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Void> login(String user, String pass) {
         boolean validCredentials = auth.login(user, pass);
@@ -74,7 +74,7 @@ public class AuthController {
      * @param pass
      * @return String
      */
-    @RequestMapping(value = {"/logout"}, method = RequestMethod.POST)
+    @RequestMapping(value = { "/logout" }, method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Void> logout(String user, String pass) {
         boolean validCredentials = auth.logout(user, pass);
