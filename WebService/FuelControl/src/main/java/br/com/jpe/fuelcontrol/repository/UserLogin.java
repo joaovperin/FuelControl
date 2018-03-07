@@ -2,7 +2,7 @@
  * fuel-control
  * CopyRight Rech Informática Ltda. Todos os direitos reservados.
  */
-package br.com.jpe.fuelcontrol.beans;
+package br.com.jpe.fuelcontrol.repository;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -25,7 +25,7 @@ public class UserLogin implements Serializable {
     @Column(name = "usuario")
     private String usuarioLogado;
 
-    @Column(name = "token")
+    @Column(name = "token", unique = true)
     private String token;
 
     @Column(name = "hora")

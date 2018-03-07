@@ -5,7 +5,11 @@
  */
 package br.com.jpe.fuelcontrol.controllers;
 
+import br.com.jpe.fuelcontrol.beans.LoginBean;
+import br.com.jpe.fuelcontrol.services.AuthException;
 import br.com.jpe.fuelcontrol.services.AuthService;
+import br.com.jpe.fuelcontrol.services.RequestService;
+import br.com.jpe.fuelcontrol.services.ResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +27,10 @@ public class AuthController {
     /** Auth service */
     @Autowired
     private AuthService auth;
+    @Autowired
+    private RequestService requestService;
+    @Autowired
+    private ResponseService responseService;
 
     /**
      * The home page is just a Health indicator xD
@@ -44,7 +52,7 @@ public class AuthController {
     @RequestMapping(value = { "/isLogged" }, method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Boolean> login(String user) {
-        if (auth.isLoggedIn(user)) {
+        if (auth.isValidToken(user)) {
             return new ResponseEntity<>(true, HttpStatus.OK);
         }
         return new ResponseEntity<>(false, HttpStatus.OK);
@@ -53,18 +61,19 @@ public class AuthController {
     /**
      * Realize the Login on the WebService
      *
-     * @param user
-     * @param pass
      * @return String
      */
     @RequestMapping(value = { "/login" }, method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Void> login(String user, String pass) {
-        boolean validCredentials = auth.login(user, pass);
-        if (validCredentials) {
+    public ResponseEntity<Void> login() {
+        LoginBean bean = requestService.castBodyTo(LoginBean.class);
+        try {
+            String token = auth.login(bean.getUser(), bean.getPass());
+            responseService.addHeader("fuelcontrol-generated-token", token);
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (AuthException e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
     /**
@@ -77,11 +86,12 @@ public class AuthController {
     @RequestMapping(value = { "/logout" }, method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Void> logout(String user, String pass) {
-        boolean validCredentials = auth.logout(user, pass);
-        if (validCredentials) {
+        try {
+            auth.logout(user, pass);
             return new ResponseEntity<>(HttpStatus.OK);
+        } catch (AuthException e) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
     }
 
 }

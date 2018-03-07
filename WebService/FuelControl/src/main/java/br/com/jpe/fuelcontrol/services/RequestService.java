@@ -28,6 +28,11 @@ public class RequestService {
     @Autowired
     private JsonService jsonService;
 
+    /**
+     * Returns the request body as a String
+     *
+     * @return String
+     */
     public String getBody() {
         StringBuilder sb = new StringBuilder(SB_START_SIZE);
         try (BufferedReader reader = request.getReader()) {
@@ -41,7 +46,14 @@ public class RequestService {
         return sb.toString();
     }
 
-    public <T> T castBodyTo(String jsonString, Class<T> type) {
+    /**
+     * Returns the request body cast as a class instance
+     *
+     * @param <T> type
+     * @param type
+     * @return String
+     */
+    public <T> T castBodyTo(Class<T> type) {
         return jsonService.castTo(getBody(), type);
     }
 

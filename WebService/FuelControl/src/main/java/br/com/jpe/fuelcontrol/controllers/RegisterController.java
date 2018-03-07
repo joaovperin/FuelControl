@@ -5,7 +5,7 @@
  */
 package br.com.jpe.fuelcontrol.controllers;
 
-import br.com.jpe.fuelcontrol.beans.Register;
+import br.com.jpe.fuelcontrol.repository.Register;
 import br.com.jpe.fuelcontrol.services.RegisterService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -37,15 +37,13 @@ public class AuthHandlerMapping extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader(HEADER_TOKEN);
         if (token != null) {
-            // TODO: Check auth by the token
+            return authService.isValidToken(token);
         }
-        String user = request.getHeader("user");
-        String pass = request.getHeader("pass");
-        // If passed user and password, tries to login
-        if (user != null && pass != null) {
-            return authService.login(user, pass);
+        // If is the login URL, allow access
+        // TODO: Allow methods with "ALLOWED" Anottation
+        if (request.getRequestURI().endsWith("login")){
+            return true;
         }
-        // TODO: Allow 
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
         return false;
     }

@@ -22,8 +22,25 @@ public class JsonService {
     @Autowired
     private Gson g;
 
-    public Gson getGson() {
-        return g;
+    /**
+     * Converts an Object to a JSON String
+     *
+     * @param object
+     * @return String
+     */
+    public String toJson(Object object) {
+        return g.toJson(object);
+    }
+
+    /**
+     * Converts an Object to a JSON String
+     *
+     * @param object
+     * @param clazz
+     * @return String
+     */
+    public String toJson(Object object, Class clazz) {
+        return g.toJson(object, clazz);
     }
 
     /**
@@ -36,7 +53,6 @@ public class JsonService {
      */
     public <T> T castTo(String jsonString, Class<T> type) {
         return g.fromJson(jsonString, type);
-
     }
 
 }

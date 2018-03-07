@@ -2,7 +2,7 @@
  * fuel-control
  * CopyRight Rech Informática Ltda. Todos os direitos reservados.
  */
-package br.com.jpe.fuelcontrol.beans;
+package br.com.jpe.fuelcontrol.repository;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -4,7 +4,7 @@
  */
 package br.com.jpe.fuelcontrol.dao;
 
-import br.com.jpe.fuelcontrol.beans.Usuario;
+import br.com.jpe.fuelcontrol.repository.Usuario;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

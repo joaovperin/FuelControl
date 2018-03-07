@@ -5,8 +5,10 @@
  */
 package br.com.jpe.fuelcontrol.services;
 
-import br.com.jpe.fuelcontrol.beans.Usuario;
+import br.com.jpe.fuelcontrol.repository.UserLogin;
+import br.com.jpe.fuelcontrol.repository.Usuario;
 import br.com.jpe.fuelcontrol.dao.UserDAO;
+import br.com.jpe.fuelcontrol.dao.UserLoginDAO;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,8 @@ public class AuthService {
     @Autowired
     private UserDAO userDAO;
     @Autowired
+    private UserLoginDAO userLoginDAO;
+    @Autowired
     private DateService dateService;
 
     /**
@@ -35,16 +39,19 @@ public class AuthService {
      * @param username
      * @param password
      * @return boolean True if successfull logged in
+     * @throws br.com.jpe.fuelcontrol.services.AuthException
      */
-    public boolean login(String username, String password) {
+    public String login(String username, String password) throws AuthException {
         Usuario user = getUserOnDatabase(username);
         if (user == null || !user.getSenha().equals(password)) {
-            return false;
+            throw new AuthException();
         }
         // Login logic
+        String token = "my-token12345"; // TODO: Generate a token based on credentials
         user.getUserLogin().setLastLogin(new Date());
+        user.getUserLogin().setToken(token);
         userDAO.update(user);
-        return true;
+        return token;
     }
 
     /**
@@ -52,32 +59,32 @@ public class AuthService {
      *
      * @param username
      * @param password
-     * @return boolean True if successfull logged in
+     * @throws br.com.jpe.fuelcontrol.services.AuthException
      */
-    public boolean logout(String username, String password) {
+    public void logout(String username, String password) throws AuthException {
         Usuario user = getUserOnDatabase(username);
         if (user == null || !user.getSenha().equals(password)) {
-            return false;
+            throw new AuthException();
         }
         // Logout logic
         user.getUserLogin().setLastLogin(null);
+        user.getUserLogin().setToken(null);
         userDAO.update(user);
-        return true;
     }
 
     /**
-     * Returns true if the user is logged in
+     * Returns true if the token is Valid
      *
-     * @param username
+     * @param token
      * @return boolean
      */
-    public boolean isLoggedIn(String username) {
-        Usuario user = getUserOnDatabase(username);
-        if (user == null) {
+    public boolean isValidToken(String token) {
+        UserLogin userLogin = userLoginDAO.searchByToken(token);
+        if (userLogin == null) {
             return false;
         }
         // Checks if the last login is after the expiration time
-        Date lastLogin = user.getUserLogin().getLastLogin();
+        Date lastLogin = userLogin.getLastLogin();
         return lastLogin != null && dateService.isBefore(new Date(),
                 dateService.addSeconds(lastLogin, LOGIN_EXP_TIME));
     }

@@ -5,7 +5,7 @@
  */
 package br.com.jpe.fuelcontrol.services;
 
-import br.com.jpe.fuelcontrol.beans.Register;
+import br.com.jpe.fuelcontrol.repository.Register;
 import br.com.jpe.fuelcontrol.dao.RegisterDAO;
 import java.util.Date;
 import java.util.List;
