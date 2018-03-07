@@ -26,4 +26,17 @@ public class JsonService {
         return g;
     }
 
+    /**
+     * Converts the JSON String to a instance of any class
+     *
+     * @param <T>
+     * @param jsonString
+     * @param type
+     * @return T
+     */
+    public <T> T castTo(String jsonString, Class<T> type) {
+        return g.fromJson(jsonString, type);
+
+    }
+
 }

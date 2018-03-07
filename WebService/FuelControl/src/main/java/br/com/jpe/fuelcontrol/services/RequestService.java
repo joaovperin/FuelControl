@@ -41,4 +41,8 @@ public class RequestService {
         return sb.toString();
     }
 
+    public <T> T castBodyTo(String jsonString, Class<T> type) {
+        return jsonService.castTo(getBody(), type);
+    }
+
 }
