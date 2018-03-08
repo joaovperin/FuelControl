@@ -26,7 +26,7 @@ public class UserLoginDAO {
      * @return UserLogin
      */
     public UserLogin searchByToken(String token) {
-        String hql = "FROM Usuarios_Login AS ul WHERE ul.token = ?";
+        String hql = "FROM UserLogin AS ul WHERE ul.token = ?";
         List<UserLogin> list = entityManager.createQuery(hql).setParameter(1, token).getResultList();
         if (!list.isEmpty()) {
             return list.get(0);

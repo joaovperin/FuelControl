@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -28,6 +29,7 @@ public class Usuario implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "usuario")
+    @PrimaryKeyJoinColumn
     private UserLogin userLogin;
 
     public String getUsuario() {
