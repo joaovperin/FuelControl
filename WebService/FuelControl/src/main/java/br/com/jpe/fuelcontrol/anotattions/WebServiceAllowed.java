@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
  *
  * @author joaovperin
  */
-@Target(value = {ElementType.METHOD})
+@Target(value = { ElementType.METHOD, ElementType.TYPE })
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface WebServiceAllowed {
 

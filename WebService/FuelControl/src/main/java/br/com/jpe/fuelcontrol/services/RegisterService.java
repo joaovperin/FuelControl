@@ -22,11 +22,7 @@ public class RegisterService {
     @Autowired
     private RegisterDAO registerDAO;
 
-    public long add(String user, String kmInicial, String kmFinal) {
-        Register reg = new Register();
-        reg.setUser(user);
-        reg.setKmInicial(kmInicial);
-        reg.setKmFinal(kmFinal);
+    public long add(Register reg) {
         reg.setHoraEnvio(new Date());
         registerDAO.insert(reg);
         return reg.getId();

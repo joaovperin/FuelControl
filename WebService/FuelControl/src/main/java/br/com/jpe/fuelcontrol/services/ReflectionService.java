@@ -29,8 +29,9 @@ public class ReflectionService {
      */
     public boolean hasAnnotation(HandlerMethod handlerMethod, Class anottation) {
         Method method = handlerMethod.getMethod();
-        if (method.getDeclaringClass().isAnnotationPresent(Controller.class)) {
-            if (method.isAnnotationPresent(anottation)) {
+        Class controller = method.getDeclaringClass();
+        if (controller.isAnnotationPresent(Controller.class)) {
+            if (method.isAnnotationPresent(anottation) || controller.isAnnotationPresent(anottation)) {
                 return true;
             }
         }
