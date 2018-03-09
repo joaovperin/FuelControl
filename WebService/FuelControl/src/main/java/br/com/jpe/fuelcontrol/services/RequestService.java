@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RequestService {
 
-    /** Inicial size of the Stringbuffer */
+    /** Initial size of the Stringbuffer */
     private static final int SB_START_SIZE = 1024;
 
     @Autowired

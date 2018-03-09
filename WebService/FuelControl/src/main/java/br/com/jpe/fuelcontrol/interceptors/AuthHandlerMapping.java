@@ -4,12 +4,15 @@
  */
 package br.com.jpe.fuelcontrol.interceptors;
 
+import br.com.jpe.fuelcontrol.anotattions.WebServiceAllowed;
 import br.com.jpe.fuelcontrol.services.AuthService;
+import br.com.jpe.fuelcontrol.services.ReflectionService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 /**
@@ -23,6 +26,8 @@ public class AuthHandlerMapping extends HandlerInterceptorAdapter {
 
     @Autowired
     private AuthService authService;
+    @Autowired
+    private ReflectionService reflectionService;
 
     /**
      * Called before handling each request
@@ -31,17 +36,17 @@ public class AuthHandlerMapping extends HandlerInterceptorAdapter {
      * @param response
      * @param handler
      * @return boolean
+     *
      * @throws Exception
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String token = request.getHeader(HEADER_TOKEN);
-        if (token != null && authService.isValidToken(token)) {
+        // If it's an allowed URL, allow access
+        if (reflectionService.hasAnnotation((HandlerMethod) handler, WebServiceAllowed.class)) {
             return true;
         }
-        // If is the login URL, allow access
-        // TODO: Allow methods with "ALLOWED" Anottation
-        if (request.getRequestURI().endsWith("login")) {
+        String token = request.getHeader(HEADER_TOKEN);
+        if (token != null && authService.isValidToken(token)) {
             return true;
         }
         response.setStatus(HttpStatus.UNAUTHORIZED.value());

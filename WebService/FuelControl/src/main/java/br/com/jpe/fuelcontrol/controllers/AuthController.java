@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
+import br.com.jpe.fuelcontrol.anotattions.WebServiceAllowed;
 
 /**
  * Controller for authentication methods
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class AuthController {
 
-    /** Auth service */
     @Autowired
     private AuthService auth;
     @Autowired
@@ -49,7 +49,7 @@ public class AuthController {
      * @param user
      * @return String
      */
-    @RequestMapping(value = { "/isLogged" }, method = RequestMethod.GET)
+    @RequestMapping(value = {"/isLogged"}, method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Boolean> login(String user) {
         if (auth.isValidToken(user)) {
@@ -63,8 +63,9 @@ public class AuthController {
      *
      * @return String
      */
-    @RequestMapping(value = { "/login" }, method = RequestMethod.POST)
+    @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     @ResponseBody
+    @WebServiceAllowed
     public ResponseEntity<Void> login() {
         LoginBean bean = requestService.castBodyTo(LoginBean.class);
         try {
@@ -83,7 +84,7 @@ public class AuthController {
      * @param pass
      * @return String
      */
-    @RequestMapping(value = { "/logout" }, method = RequestMethod.POST)
+    @RequestMapping(value = {"/logout"}, method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Void> logout(String user, String pass) {
         try {

@@ -10,6 +10,7 @@ import br.com.jpe.fuelcontrol.repository.Usuario;
 import br.com.jpe.fuelcontrol.dao.UserDAO;
 import br.com.jpe.fuelcontrol.dao.UserLoginDAO;
 import java.util.Date;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.ApplicationScope;
@@ -39,6 +40,7 @@ public class AuthService {
      * @param username
      * @param password
      * @return boolean True if successfull logged in
+     *
      * @throws br.com.jpe.fuelcontrol.services.AuthException
      */
     public String login(String username, String password) throws AuthException {
@@ -47,7 +49,7 @@ public class AuthService {
             throw new AuthException();
         }
         // Login logic
-        String token = "my-token12345"; // TODO: Generate a token based on credentials
+        String token = UUID.randomUUID().toString();
         user.getUserLogin().setLastLogin(new Date());
         user.getUserLogin().setToken(token);
         userDAO.update(user);
